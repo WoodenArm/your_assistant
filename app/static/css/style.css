@@ -1,0 +1,81 @@
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+    background-color: white;
+    min-width: 320px;
+}
+
+
+/*Header*/
+.navbar-expand-lg .navbar-nav .nav-link {
+    color: #7e7c7c;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.navbar-expand-lg .navbar-nav .nav-link:hover {
+    color: #111;
+}
+
+.text-logo {
+    color: #05613c;
+    font-weight: 700;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.text-logo:hover {
+    color: #05613c;
+}
+
+.top-menu li a::after {
+    content: '';
+    display: block;
+    width: 100%;
+    background-color: #111;
+    height: 1px;
+    transition: all .3s;
+    transform: scale(0);
+}
+
+.top-menu li a:hover::after {
+    transform: scale(1);
+}
+
+/*Header*/
+
+/*index*/
+.text-color {
+    color: #7e7c7c;
+}
+
+.topic {
+    text-decoration: none;
+    color: grey;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.topic-style {
+    padding: 0 8px 6px 10px;
+    border-left: 3px solid rgb(196, 192, 192);
+    border-bottom: 2px solid rgb(196, 192, 192);
+    width: max-content;
+  }
+/*index*/
+
+.text-flash {
+    color: #e44545;
+    font-weight: 400;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/*footer*/
+
+/*footer*/

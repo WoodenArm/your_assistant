@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Sign Up</h3>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="text-flash mb-3">
+    {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">LOGIN</a>.
+</div>
+{% endif %}
+{% endwith %}
+<form method="POST" action="/signup">
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-1 col-form-label">Email</label>
+        <div class="col-sm-3">
+            <input type="email" name="email" class="form-control" id="inputEmail3" required>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-1 col-form-label">Name</label>
+        <div class="col-sm-3">
+            <input type="text" name="name" class="form-control" id="inputEmail3" required>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputPassword3" class="col-sm-1 col-form-label">Password</label>
+        <div class="col-sm-3">
+            <input type="password" name="password" class="form-control" id="inputPassword3" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+{% endblock %}
