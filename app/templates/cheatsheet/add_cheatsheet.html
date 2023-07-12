@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Adding an cheatsheet.</h3>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash_success">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+<form method="POST" action="" class="me-5">
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" id="exampleFormControlInput1"
+            placeholder="Add a title to the cheatsheet">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+        <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

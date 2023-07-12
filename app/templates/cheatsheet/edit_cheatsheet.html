@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Edit an cheatsheet.</h3>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="text-flash mb-3">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+<form method="POST" action="" class="me-5">
+
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" value="{{ title }}" id="exampleFormControlInput1"
+            placeholder="Add a title to the cheatsheet">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+        <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25">{{ content }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Save сhanges</button>
+    <p><a class="btn btn-danger mt-3" href="{{ url_for('cheatsheet.del_request', id=id)}}" role="button">Delete cheatsheet !!!</a></p>
+</form>
+{% endblock %}

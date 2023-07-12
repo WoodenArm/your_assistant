@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Are you sure about deleting the article <span style="color:#0a73d6 ">{{ title }}</span>?</h3>
+
+<p><a class="btn btn-danger mt-3" href="{{ url_for('articles.del_article', id=id)}}" role="button">Delete
+        article !!!</a></p>
+<p><a class="btn btn-success mt-3" href="{{ url_for('articles.index')}}" role="button">No, I changed my mind.</a></p>
+
+{% endblock %}

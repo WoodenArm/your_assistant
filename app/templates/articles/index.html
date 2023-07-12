@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+<div>
+    <h3>The articles:</h3>
+</div>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash_attention mb-3">
+    {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+
+<div>
+    {% for article in articles %}
+    <div class="fs-5">
+        <a href="{{ url_for('articles.show_article', id=article.id) }}" class="link-secondary articles articles_a">{{
+            article.title }}</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
