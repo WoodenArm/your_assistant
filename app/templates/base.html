@@ -20,7 +20,7 @@
                 <a class="navbar-brand" href="{{ url_for('main.index') }}">
                     <img src="{{ url_for('static', filename='img/picture_2.jpg')}}" alt="" width="50" height="" class="d-inline-block align-text-top"></a>
             </div>
-            <a class="text-logo" href="{{ url_for('main.index') }}">Your assistant</a>
+            <!-- <a class="text-logo" href="{{ url_for('main.index') }}">Your assistant</a> -->
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -43,20 +43,40 @@
                     </li>
                     {% endif %}
                     {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                    <li class="nav-item ms-4">
+                        <a class="nav-link" href="{{ url_for('articles.index') }}">Articles</a>
                     </li>
+                    <li class="nav-item ms-4">
+                        <a class="nav-link" style="color:#0a73d6" href="{{ url_for('articles.add_article') }}">Adding an article</a>
+                    </li>
+                    <li class="nav-item ms-4">
+                        <a class="nav-link" style="color:#e03143" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                    <li class="nav-item dropdown ms-4">
+                        <a class="nav-link dropdown-toggle" href="{{ url_for('cheatsheet.index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cheatsheets
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('cheatsheet.index') }}">List of cheat sheets</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('cheatsheet.add_cheatsheet') }}">Adding an cheatsheet</a></li>
+                        </ul>
+                      </li>
                     {% endif %}
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Поиск">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+
+                <form method="POST" action='/articles/search' enctype="multipart/form-data">
+                    <div class="d-flex">
+                        <input class="form-control me-2" type="search" name="tag" placeholder="Enter a tag..." aria-label="Поиск">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </div>
+
                 </form>
             </div>
         </div>
     </nav>
 
-    <div class="d-flex flex-column flex-grow-1 ms-5 mt-3">
+    <div class="d-flex flex-column flex-grow-1 ms-5 mt-3 mb-3 me-5">
         {% block content %}
         {% endblock %}
     </div>

@@ -7,7 +7,7 @@
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 <div class="text-flash mb-3">
-    {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">LOGIN</a>.
+    {{ messages[0] }}. Or go to <a href="{{ url_for('auth.signup') }}">Signup</a>.
 </div>
 {% endif %}
 {% endwith %}

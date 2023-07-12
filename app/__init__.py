@@ -35,8 +35,12 @@ def create_app(config_class=Config):
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
 
-    from app.posts import bp as posts_bp
-    app.register_blueprint(posts_bp, url_prefix='/posts')
+    from app.articles import bp as articles_bp
+    app.register_blueprint(articles_bp, url_prefix='/articles')
+
+    from app.cheatsheet import bp as cheatsheet_bp
+    app.register_blueprint(cheatsheet_bp, url_prefix='/cheatsheet')
+
 
 
 

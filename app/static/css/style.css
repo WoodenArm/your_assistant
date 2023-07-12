@@ -16,7 +16,7 @@ body {
 .navbar-expand-lg .navbar-nav .nav-link {
     color: #7e7c7c;
     font-weight: 500;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 .navbar-expand-lg .navbar-nav .nav-link:hover {
     color: #111;
@@ -33,7 +33,7 @@ body {
     color: #05613c;
 }
 
-.top-menu li a::after {
+/* .top-menu li a::after {
     content: '';
     display: block;
     width: 100%;
@@ -45,7 +45,8 @@ body {
 
 .top-menu li a:hover::after {
     transform: scale(1);
-}
+} */
+
 
 /*Header*/
 
@@ -76,6 +77,51 @@ body {
     text-decoration: none;
 }
 
-/*footer*/
+/*articles*/
+.articles {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #7e7c7c;
+    text-decoration: none;
+}
 
-/*footer*/
+.articles_a {
+	position: relative;
+	color: #8999aa; /*задаём цвет ссылки*/
+	cursor: pointer;
+	line-height: 1; /*задаём высоту строки*/
+	text-decoration: none; /*убираем подчёркивание*/
+
+}
+.articles_a:after {
+	display: block;
+	position: absolute;
+	left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+	width: 0;/*задаём длинну линии до наведения курсора*/
+	height: 2px; /*задаём ширину линии*/
+	background-color: #8999aa; /*задаём цвет линии*/
+	content: "";
+	transition: width 0.3s ease-out; /*задаём время анимации*/
+}
+
+.articles_a:hover:after,
+.articles_a:focus:after {
+	width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+}
+
+/*articles*/
+
+/* flash */
+.flash_success {
+    color:#0cc279;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.flash_attention {
+    color:#e13c3c;
+    font-weight: 400;
+    font-size: 20px;
+}
+/* flash */
