@@ -34,6 +34,8 @@ def search():
         for i in articles:
             if tag in i.tags:
                 articles_filter.append(i)
+            if tag in i.title.lower():
+                articles_filter.append(i)
 
         return render_template('articles/search.html', articles=articles_filter, matches=len(articles_filter), tag=tag)
     else:
