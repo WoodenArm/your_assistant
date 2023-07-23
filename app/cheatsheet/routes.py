@@ -23,12 +23,12 @@ def edit_cheatsheet(id):
         cheatsheet.content = request.form.get('content')
 
         if current_user.username != cheatsheet.author:
-            flash("You have no permission to make changes!")
+            flash("You have no permission to make changes!", 'flash_attention')
             return redirect(url_for('cheatsheet.index'))
 
         db.session.commit()
 
-        flash("Your changes have been saved.")
+        flash("Your changes have been saved.", 'flash_success')
         return redirect(url_for('cheatsheet.edit_cheatsheet', id=cheatsheet.id))
 
     content = cheatsheet.content
@@ -48,14 +48,14 @@ def add_cheatsheet():
 
         title_exists = Cheatsheet.query.filter_by(title=title).first()
         if title_exists or len(title) == 0:
-            flash("This cheatsheet already exists. Please choose a new title.")
+            flash("This cheatsheet already exists. Please choose a new title.", 'flash_attention')
             return redirect(url_for('cheatsheet.add_cheatsheet'))
 
         new_cheatsheet = Cheatsheet(title=title, content=content, author=author)
         db.session.add(new_cheatsheet)
         db.session.commit()
 
-        flash('The cheatsheet added successfully.')
+        flash('The cheatsheet added successfully.', 'flash_success')
         return redirect(url_for('cheatsheet.add_cheatsheet'))
 
     return render_template('cheatsheet/add_cheatsheet.html')
@@ -67,7 +67,7 @@ def del_request(id):
     cheatsheet = Cheatsheet.query.get_or_404(id)
     title=cheatsheet.title
     if current_user.username != cheatsheet.author:
-        flash("You do not have permission to delete!!")
+        flash("You do not have permission to delete!!", 'flash_attention')
         return redirect(url_for('cheatsheet.index'))
     return render_template('cheatsheet/del_cheatsheet.html', title=title, id=id)
 
@@ -80,5 +80,5 @@ def del_cheatsheet(id):
     db.session.delete(cheatsheet)
     db.session.commit()
 
-    flash(f'The cheatsheet { title } has been successfully deleted.')
+    flash(f'The cheatsheet { title } has been successfully deleted.', 'flash_success')
     return redirect(url_for('cheatsheet.index'))
