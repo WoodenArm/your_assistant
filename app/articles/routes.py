@@ -5,6 +5,7 @@ from app.extensions import db
 from app.models.article import Article
 from app.articles.secure_filename import secure_filename
 from app.models.cheatsheet import Cheatsheet
+from app.send_email.send_email import send_email
 
 import os
 
@@ -13,17 +14,46 @@ import os
 @login_required
 def index():
     articles = Article.query.all()
-    return render_template('articles/index.html', articles=articles)
+
+    list_articles = []
+    for article in articles:       
+        if current_user.username == article.author or article.public_access:
+            list_articles.append(article)
+    return render_template('articles/index.html', articles=list_articles)
 
 
-@bp.route('/show_article/<int:id>')
+@bp.route('/show_article/<int:id>', methods=['GET', 'POST'])
 @login_required
 def show_article(id):
-    article = Article.query.filter_by(id=id).first()
+    article = Article.query.get_or_404(id)
+
+    if request.method == 'POST':
+        public_access = request.form.get('public_access')
+
+        if public_access == 'on':
+            article.public_access = True
+        else:
+            article.public_access = False
+
+        if current_user.username != article.author:
+            flash("You have no permission to make changes!", 'flash_attention')
+            return redirect(url_for('articles.show_article', id=article.id))
+        
+        db.session.commit()
+
+        flash("Your changes have been saved.", 'flash_success')
+        return redirect(url_for('articles.show_article', id=article.id))
+
+    if article.public_access:
+        public_access = 'checked'
+    else:
+        public_access = ''
+
     title = article.title
     name = article.path_article
     path = url_for('static', filename=f'articles/{name}')
-    return render_template('articles/article.html', title=title, path=path, id=id)
+
+    return render_template('articles/article.html', title=title, path=path, id=id, public_access=public_access)
 
 
 @bp.route('/search', methods=['GET', 'POST'])
@@ -38,14 +68,21 @@ def search():
                 articles_filter.append(i)
             if tag in i.title.lower():
                 articles_filter.append(i)
+        articles_filter = set(articles_filter)
 
         cheatsheets = Cheatsheet.query.all()
+        list_cheatsheets = []
+        for cheatsheet in cheatsheets:       
+            if current_user.username == cheatsheet.author or cheatsheet.public_access:
+                list_cheatsheets.append(cheatsheet)
+
         cheatsheets_filter = []
-        for i in cheatsheets:
-            if tag in i.title:
+        for i in list_cheatsheets:
+            if tag in i.title.lower():
                 cheatsheets_filter.append(i)
             if tag in i.content:
                 cheatsheets_filter.append(i)
+        cheatsheets_filter = set(cheatsheets_filter)
         matches = len(articles_filter) + len(cheatsheets_filter)
         return render_template('articles/search.html', articles=articles_filter, cheatsheets=cheatsheets_filter, matches=matches, tag=tag)
     else:
@@ -72,6 +109,7 @@ def add_article():
             flash("Can't read file.", 'flash_attention')  
             return redirect(request.url)  
         file = request.files['file']
+        
         if file.filename == '':
             flash('You have not selected an article.', 'flash_attention')
             return redirect(request.url)
@@ -80,18 +118,28 @@ def add_article():
             #filename = file.filename
             file.save(os.path.join('app', 'static', 'articles', filename))
 
+            # preparing a file for sending by email
+            file_path = os.path.join('app', 'static', 'articles', filename)
+            subject = f'The your assistant added article "{filename}".'
+            # send_email(file_path, subject)
+
             tags = request.form.get('tags')
 
             author = current_user.username
+            public_access = request.form.get('public_access')
+            if public_access == 'on':
+                public_access = True
+            else:
+                public_access = False
 
-            new_article = Article(title=filename.rsplit('.', 1)[0], path_article=filename, tags=tags, author=author)
+            new_article = Article(title=filename.rsplit('.', 1)[0], path_article=filename, tags=tags, author=author, public_access=public_access)
             db.session.add(new_article)
             db.session.commit()
 
             flash('The article added successfully.', 'flash_success')
 
             return redirect(url_for('articles.add_article'))
-        flash('The file name is repeated or the format is not allowed.')
+        flash('The file name is repeated or the format is not allowed.', 'flash_attention')
     return render_template('articles/add_article.html')
 
 

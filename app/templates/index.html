@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
+
+{% if current_user.is_authenticated %}
+<div class="dropdown position-fixed top-1 end-0 me-3">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Cheatsheets</a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        {% for cheatsheet in cheatsheets %}
+        <div class="fs-5">
+            <li><a class="dropdown-item" href="{{ url_for('cheatsheet.edit_cheatsheet', id=cheatsheet.id) }}">{{cheatsheet.title }}</a></li>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+
+
 <h2>This is your personal assistant!</h2>
 {% endblock %}

@@ -1,15 +1,30 @@
 {% extends 'base.html' %}
 
-
-
 {% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="{{ category }}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
 <div class="d-flex justify-content-between">
     <div class="p-2">
         <h3>{{ title }}</h3>
     </div>
-    <div class="p-2">
-        <a class="btn btn-danger mt-3 me-0" href="{{ url_for('articles.del_request', id=id) }}" role="button">Delete article !!!</a>
-    </div>
+
+    <form method="POST" action="" class="row g-3">
+        <div class="form-check form-switch col-auto mt-5">          
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                    name="public_access" {{ public_access }}>
+                <label class="form-check-label" for="flexSwitchCheckChecked">Allow public access</label>     
+        </div>
+        <div class="p-2 col-auto">
+            <button type="submit" class="btn btn-success mt-3">Save changes</button>
+            <a class="btn btn-danger mt-3 me-0" href="{{ url_for('articles.del_request', id=id) }}" role="button">Delete
+                article !!!</a>
+        </div>
+    </form>
 </div>
 
 

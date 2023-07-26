@@ -23,7 +23,7 @@ _windows_device_files = (
     "NUL",
 )
 
-_filename_strip_re = re.compile(r"[^A-Za-za-яА-ЯёЁ0-9_.-]")
+_filename_strip_re = re.compile(r"[^A-Za-za-яА-ЯёЁії0-9_.-]")
 
 
 def secure_filename(filename: str) -> str:

@@ -20,7 +20,6 @@
                 <a class="navbar-brand" href="{{ url_for('main.index') }}">
                     <img src="{{ url_for('static', filename='img/picture_2.jpg')}}" alt="" width="50" height="" class="d-inline-block align-text-top"></a>
             </div>
-            <!-- <a class="text-logo" href="{{ url_for('main.index') }}">Your assistant</a> -->
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -56,15 +55,18 @@
                         <a class="nav-link dropdown-toggle" href="{{ url_for('cheatsheet.index') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Cheatsheets
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('cheatsheet.index') }}">List of cheat sheets</a></li>
+                        <ul class="dropdown-menu fs-5" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item " style="color:#158527" href="{{ url_for('cheatsheet.add_cheatsheet') }}">Adding an cheatsheet</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('cheatsheet.add_cheatsheet') }}">Adding an cheatsheet</a></li>
+                           
+                            
+                                <li><a class="dropdown-item" href="{{ url_for('cheatsheet.index') }}">List of cheatsheets</a></li>
+                            
                         </ul>
                       </li>
                     {% endif %}
                 </ul>
-
+                 
                 <form method="POST" action='/articles/search' enctype="multipart/form-data">
                     <div class="d-flex">
                         <input class="form-control me-2" type="search" name="tag" placeholder="Enter a tag..." aria-label="Поиск">

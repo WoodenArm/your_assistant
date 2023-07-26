@@ -1,5 +1,4 @@
 from flask import Flask
-
 from config import Config
 from app.extensions import db
 from flask_migrate import Migrate
@@ -41,7 +40,6 @@ def create_app(config_class=Config):
     from app.cheatsheet import bp as cheatsheet_bp
     app.register_blueprint(cheatsheet_bp, url_prefix='/cheatsheet')
 
-
-
-
+  
     return app
+

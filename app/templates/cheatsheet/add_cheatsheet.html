@@ -13,22 +13,30 @@
 {% endwith %} -->
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-  {% for category, message in messages %}
-    <div class="{{ category }}">{{ message }}</div>
-  {% endfor %}
+{% for category, message in messages %}
+<div class="{{ category }}">{{ message }}</div>
+{% endfor %}
 {% endwith %}
 
 <form method="POST" action="" class="me-5">
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Title</label>
-        <input type="text" name="title" class="form-control" id="exampleFormControlInput1"
-            placeholder="Add a title to the cheatsheet">
-    </div>
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-        <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Add</button>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Title</label>
+    <input type="text" name="title" class="form-control" id="exampleFormControlInput1"
+      placeholder="Add a title to the cheatsheet">
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+    <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25"></textarea>
+  </div>
+  <div class="row mb-3 ms-2">
+
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="public_access">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Allow public access</label>
+      </div>
+  
+  </div>
+  <button type="submit" class="btn btn-primary">Add</button>
 </form>
 {% endblock %}

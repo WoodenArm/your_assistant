@@ -4,14 +4,6 @@
 
 <h3>Edit an cheatsheet.</h3>
 
-<!-- {% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="text-flash mb-3">
-    {{ messages[0] }}
-</div>
-{% endif %}
-{% endwith %} -->
-
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% for category, message in messages %}
     <div class="{{ category }}">{{ message }}</div>
@@ -29,7 +21,11 @@
         <label for="exampleFormControlTextarea1" class="form-label">Content</label>
         <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25">{{ content }}</textarea>
     </div>
-    <button type="submit" class="btn btn-success">Save сhanges</button>
+    <div class="form-check form-switch mb-3 ms-2">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="public_access" {{ public_access }}>
+      <label class="form-check-label" for="flexSwitchCheckChecked">Allow public access</label>
+    </div>
+    <button type="submit" class="btn btn-success">Save changes</button>
     <p><a class="btn btn-danger mt-3" href="{{ url_for('cheatsheet.del_request', id=id)}}" role="button">Delete cheatsheet !!!</a></p>
 </form>
 {% endblock %}

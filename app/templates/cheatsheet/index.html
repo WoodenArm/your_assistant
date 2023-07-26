@@ -22,8 +22,7 @@
 <div>
     {% for cheatsheet in cheatsheets %}
     <div class="fs-5">
-        <a href="{{ url_for('cheatsheet.edit_cheatsheet', id=cheatsheet.id) }}"
-            class="link-secondary articles articles_a">{{ cheatsheet.title }}</a>
+        <a href="{{ url_for('cheatsheet.edit_cheatsheet', id=cheatsheet.id) }}" class="link-secondary articles articles_a">{{ cheatsheet.title }}</a>
     </div>
     {% endfor %}
 </div>

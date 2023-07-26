@@ -16,6 +16,7 @@ body {
 .navbar-expand-lg .navbar-nav .nav-link {
     color: #7e7c7c;
     font-weight: 500;
+    font-size: 18px;
     /* text-transform: uppercase; */
 }
 .navbar-expand-lg .navbar-nav .nav-link:hover {
@@ -125,3 +126,9 @@ body {
     font-size: 20px;
 }
 /* flash */
+
+/* bootstrap */
+nav.navbar .dropdown:hover > .dropdown-menu {
+    display: block; 
+   } 
+/* bootstrap */
