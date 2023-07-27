@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3>Adding an cheatsheet.</h3>
+<span class="fs-3">Adding an cheatsheet.</span>
 
 <!-- {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -23,11 +23,11 @@
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Title</label>
     <input type="text" name="title" class="form-control" id="exampleFormControlInput1"
-      placeholder="Add a title to the cheatsheet">
+      placeholder="Add a title to the cheatsheet" required>
   </div>
   <div class="mb-3">
     <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-    <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25"></textarea>
+    <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25" required></textarea>
   </div>
   <div class="row mb-3 ms-2">
 

@@ -2,30 +2,35 @@
 
 {% block content %}
 
-<h3>Edit an cheatsheet.</h3>
+<span class="fs-3">View and edit cheat sheet.</span>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
-  {% for category, message in messages %}
-    <div class="{{ category }}">{{ message }}</div>
-  {% endfor %}
+{% for category, message in messages %}
+<div class="{{ category }}">{{ message }}</div>
+{% endfor %}
 {% endwith %}
 
 <form method="POST" action="" class="me-5">
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Title</label>
-        <input type="text" name="title" class="form-control" value="{{ title }}" id="exampleFormControlInput1"
-            placeholder="Add a title to the cheatsheet">
-    </div>
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-        <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25">{{ content }}</textarea>
-    </div>
-    <div class="form-check form-switch mb-3 ms-2">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="public_access" {{ public_access }}>
-      <label class="form-check-label" for="flexSwitchCheckChecked">Allow public access</label>
-    </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Title</label>
+    <input type="text" name="title" class="form-control" value="{{ title }}" id="exampleFormControlInput1"
+      placeholder="Add a title to the cheatsheet" required>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+    <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="25"
+      required>{{ content }}</textarea>
+  </div>
+  <div class="form-check form-switch mb-3 ms-2">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="public_access" {{
+      public_access }}>
+    <label class="form-check-label" for="flexSwitchCheckChecked">Allow public access</label>
+  </div>
+  <div class="d-flex justify-content-between">
     <button type="submit" class="btn btn-success">Save changes</button>
-    <p><a class="btn btn-danger mt-3" href="{{ url_for('cheatsheet.del_request', id=id)}}" role="button">Delete cheatsheet !!!</a></p>
+    <a class="btn btn-danger me-2" href="{{ url_for('cheatsheet.del_request', id=id)}}" role="button">Delete cheatsheet!!!</a>
+  </div>
+
 </form>
 {% endblock %}

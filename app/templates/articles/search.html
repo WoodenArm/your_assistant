@@ -2,21 +2,22 @@
 
 {% block content %}
 <div>
-    <h3>Search result <span style="color:#0a73d6">{{ tag }}:</span></h3>
-    <h5>In articles:</h5>
+    <p class="fs-3">Search result <span style="color:#0a73d6">{{ tag }}:</span></p>
+    <p class="fs-5" style="color:#0a73d6">In articles:</p>
 </div>
 
-<div class="container"> 
+<div class="container">
     {% for article in articles %}
     <div class="fs-5">
-        <a href="{{ url_for('articles.show_article', id=article.id) }}" class="link-secondary articles articles_a">{{article.title}}</a>
+        <a href="{{ url_for('articles.show_article', id=article.id) }}"
+            class="link-secondary articles articles_a">{{article.title}}</a>
     </div>
     {% endfor %}
 </div>
 
 <p></p>
 
-<h5>In cheatcheets:</h5>
+<p class="fs-5" style="color:#0a73d6">In cheatcheets:</p>
 <div class="container">
     {% for cheatcheet in cheatsheets %}
     <div class="fs-5">
@@ -26,8 +27,10 @@
     {% endfor %}
 </div>
 
+<div class="mt-2">
+    <p class="fs-5"> <span style="color:#0a73d6">Found {{ matches }} matches.</span> </p>
+</div>
 
-<h5> <span style="color:#0a73d6">Found {{ matches }} matches.</span> </h5>
 
 
 {% endblock %}

@@ -46,11 +46,11 @@ def edit_cheatsheet(id):
         title = secure_filename(cheatsheet.title)
         content = cheatsheet.content
         filename = os.path.join('app', 'static', 'cheatsheets', f'{title}.txt')
-        with open(filename, 'w') as file_object:
+        with open(filename, 'w', newline='') as file_object:
             string = file_object.write(content)
         file_path = filename
         subject = f'The assistant made changes to the cheatsheet "{title}".'
-        # send_email(file_path, subject)
+        send_email(file_path, subject)
 
         db.session.commit()
 
@@ -88,26 +88,27 @@ def add_cheatsheet():
         title = secure_filename(title)
 
         title_exists = Cheatsheet.query.filter_by(title=title).first()
-        if title_exists or len(title) == 0:
+        if title_exists:
             flash("This cheatsheet already exists. Please choose a new title.", 'flash_attention')
             return redirect(url_for('cheatsheet.add_cheatsheet'))
 
         # make file .txt to send by email
         filename = os.path.join('app', 'static', 'cheatsheets', f'{title}.txt')
-        with open(filename, 'w') as file_object:
+        with open(filename, 'w', newline='') as file_object:
             string = file_object.write(content)
         file_path = filename
         subject = f'The your assistant added cheatsheet "{title}".'
-        # send_email(file_path, subject)
+        send_email(file_path, subject)
 
         new_cheatsheet = Cheatsheet(title=title, content=content, author=author, public_access=public_access)
         db.session.add(new_cheatsheet)
         db.session.commit()
 
         flash('The cheatsheet added successfully.', 'flash_success')
-        return redirect(url_for('cheatsheet.add_cheatsheet'))
+        return redirect(url_for('cheatsheet.index'))
 
     return render_template('cheatsheet/add_cheatsheet.html')
+
 
 
 @bp.route('/del_request/<int:id>')

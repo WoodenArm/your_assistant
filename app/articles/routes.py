@@ -60,7 +60,7 @@ def show_article(id):
 @login_required
 def search():
     tag = request.form.get('tag')
-    if len(tag) >= 2:
+    if len(tag) >= 3:
         articles = Article.query.all()
         articles_filter = []
         for i in articles:
@@ -121,7 +121,7 @@ def add_article():
             # preparing a file for sending by email
             file_path = os.path.join('app', 'static', 'articles', filename)
             subject = f'The your assistant added article "{filename}".'
-            # send_email(file_path, subject)
+            send_email(file_path, subject)
 
             tags = request.form.get('tags')
 
@@ -132,7 +132,10 @@ def add_article():
             else:
                 public_access = False
 
-            new_article = Article(title=filename.rsplit('.', 1)[0], path_article=filename, tags=tags, author=author, public_access=public_access)
+            title=filename.rsplit('.', 1)[0]
+            title = f'{title}_author_{current_user.username}'
+
+            new_article = Article(title=title, path_article=filename, tags=tags, author=author, public_access=public_access)
             db.session.add(new_article)
             db.session.commit()
 

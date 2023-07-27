@@ -2,10 +2,11 @@
 
 {% block content %}
 
-<h3>Are you sure about deleting the cheatsheet <span style="color:#0a73d6 ">{{ title }}</span>?</h3>
-
-<p><a class="btn btn-danger mt-3" href="{{ url_for('cheatsheet.del_cheatsheet', id=id)}}" role="button">Delete
-        cheatsheet !!!</a></p>
-<p><a class="btn btn-success mt-3" href="{{ url_for('cheatsheet.index')}}" role="button">No, I changed my mind.</a></p>
+<span class="fs-3">Are you sure about deleting the cheatsheet <span style="color:#0a73d6 ">{{ title }}</span>?</span>
+<div class="p-2 col-auto">
+        <a class="btn btn-danger mt-3" href="{{ url_for('cheatsheet.del_cheatsheet', id=id)}}" role="button">Delete
+                cheatsheet !!!</a>
+        <a class="btn btn-success mt-3 ms-2" href="{{ url_for('cheatsheet.index')}}" role="button">No, I changed my mind.</a>
+</div>
 
 {% endblock %}
