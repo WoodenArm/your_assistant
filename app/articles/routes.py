@@ -120,7 +120,7 @@ def add_article():
 
             # preparing a file for sending by email
             file_path = os.path.join('app', 'static', 'articles', filename)
-            subject = f'The your assistant added article "{filename}".'
+            subject = f'"{filename}" article has been added to the data store..'
             send_email(file_path, subject)
 
             tags = request.form.get('tags')
