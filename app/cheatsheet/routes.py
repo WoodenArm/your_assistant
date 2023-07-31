@@ -50,7 +50,7 @@ def edit_cheatsheet(id):
             string = file_object.write(content)
         file_path = filename
         subject = f'Changes made to cheatsheet "{title}".'
-        send_email(file_path, subject)
+        # send_email(file_path, subject)
 
         db.session.commit()
 
@@ -98,7 +98,7 @@ def add_cheatsheet():
             string = file_object.write(content)
         file_path = filename
         subject = f'"{title}" cheatsheet has been added to the data store.'
-        send_email(file_path, subject)
+        # send_email(file_path, subject)
 
         new_cheatsheet = Cheatsheet(title=title, content=content, author=author, public_access=public_access)
         db.session.add(new_cheatsheet)
