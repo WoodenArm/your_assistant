@@ -9,8 +9,9 @@
 <div class="container">
     {% for article in articles %}
     <div class="fs-5">
-        <a href="{{ url_for('articles.show_article', id=article.id) }}"
-            class="link-secondary articles articles_a">{{article.title}}</a>
+        <a href="{{ article[1] }}" class="link-secondary articles articles_a" target="_blank">{{ article[0] }}</a>
+        <a href="{{ url_for('articles.show_article', id=article[2]) }}" role="button"
+            class="btn btn-sm btn-outline-warning ms-3 {{ article[3] }}">Edit</a>
     </div>
     {% endfor %}
 </div>
@@ -19,10 +20,11 @@
 
 <p class="fs-5" style="color:#0a73d6">In cheatcheets:</p>
 <div class="container">
-    {% for cheatcheet in cheatsheets %}
+    {% for cheatsheet in cheatsheets %}
     <div class="fs-5">
-        <a href="{{ url_for('cheatsheet.edit_cheatsheet', id=cheatcheet.id) }}"
-            class="link-secondary articles articles_a">{{ cheatcheet.title}}</a>
+        <a href="{{ cheatsheet[2] }}" class="link-secondary articles articles_a" target="_blank">{{ cheatsheet[1] }}</a>
+        <a href="{{ url_for('cheatsheet.edit_cheatsheet', id=cheatsheet[0]) }}" role="button"
+            class="btn btn-sm btn-outline-warning ms-3 {{ cheatsheet[3] }}">Edit</a>
     </div>
     {% endfor %}
 </div>
