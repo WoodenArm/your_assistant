@@ -18,7 +18,7 @@
 {% endfor %}
 {% endwith %}
 
-<form method="POST" action="" class="me-5">
+<form method="POST" action="{{url_for('cheatsheet.add_cheatsheet')}}" class="me-5">
 
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Title</label>

@@ -16,7 +16,17 @@ def index():
 
     for cheatsheet in cheatsheets:       
         if current_user.username == cheatsheet.author or cheatsheet.public_access:
-            list_cheatsheets.append(cheatsheet)
+            id = cheatsheet.id
+            title = cheatsheet.title
+            
+            path = url_for('static', filename=f'cheatsheets/{title}.txt')
+            
+            # edit button activity
+            if current_user.username != cheatsheet.author:
+                disabled = 'disabled'
+            else:
+                disabled = 'enabled'
+            list_cheatsheets.append((id, title, path, disabled))
 
     return render_template('cheatsheet/index.html', cheatsheets=list_cheatsheets)
 
@@ -46,11 +56,11 @@ def edit_cheatsheet(id):
         title = secure_filename(cheatsheet.title)
         content = cheatsheet.content
         filename = os.path.join('app', 'static', 'cheatsheets', f'{title}.txt')
-        with open(filename, 'w', newline='') as file_object:
+        with open(filename, 'w', encoding='utf-8', newline='') as file_object:
             string = file_object.write(content)
         file_path = filename
         subject = f'Changes made to cheatsheet "{title}".'
-        send_email(file_path, subject)
+        # send_email(file_path, subject)
 
         db.session.commit()
 
@@ -94,11 +104,11 @@ def add_cheatsheet():
 
         # make file .txt to send by email
         filename = os.path.join('app', 'static', 'cheatsheets', f'{title}.txt')
-        with open(filename, 'w', newline='') as file_object:
+        with open(filename, 'w', encoding='utf-8', newline='') as file_object:
             string = file_object.write(content)
         file_path = filename
         subject = f'"{title}" cheatsheet has been added to the data store.'
-        send_email(file_path, subject)
+        # send_email(file_path, subject)
 
         new_cheatsheet = Cheatsheet(title=title, content=content, author=author, public_access=public_access)
         db.session.add(new_cheatsheet)

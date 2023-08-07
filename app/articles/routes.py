@@ -18,7 +18,16 @@ def index():
     list_articles = []
     for article in articles:       
         if current_user.username == article.author or article.public_access:
-            list_articles.append(article)
+            title = article.title
+            name = article.path_article
+            path = url_for('static', filename=f'articles/{name}')
+            id = article.id
+            if current_user.username != article.author:
+                disabled = 'disabled'
+            else:
+                disabled = 'enabled'
+            list_articles.append((title, path, id, disabled))       
+        
     return render_template('articles/index.html', articles=list_articles)
 
 
@@ -63,27 +72,41 @@ def search():
     if len(tag) >= 3:
         articles = Article.query.all()
         articles_filter = []
-        for i in articles:
-            if tag in i.tags:
-                articles_filter.append(i)
-            if tag in i.title.lower():
-                articles_filter.append(i)
+        for article in articles:
+            if current_user.username == article.author or article.public_access:
+                title = article.title
+                name = article.path_article
+                path = url_for('static', filename=f'articles/{name}')
+                id = article.id
+                # edit button activity
+                if current_user.username != article.author:
+                    disabled = 'disabled'
+                else:
+                    disabled = 'enabled'
+                if tag in f'{article.tags} {article.title}'.lower():
+                    articles_filter.append((title, path, id, disabled))     
         articles_filter = set(articles_filter)
 
         cheatsheets = Cheatsheet.query.all()
-        list_cheatsheets = []
+        cheatsheets_filter = []
         for cheatsheet in cheatsheets:       
             if current_user.username == cheatsheet.author or cheatsheet.public_access:
-                list_cheatsheets.append(cheatsheet)
-
-        cheatsheets_filter = []
-        for i in list_cheatsheets:
-            if tag in i.title.lower():
-                cheatsheets_filter.append(i)
-            if tag in i.content:
-                cheatsheets_filter.append(i)
+                id = cheatsheet.id
+                title = cheatsheet.title
+                
+                path = url_for('static', filename=f'cheatsheets/{title}.txt')
+                
+                # edit button activity
+                if current_user.username != cheatsheet.author:
+                    disabled = 'disabled'
+                else:
+                    disabled = 'enabled'
+                if tag in f'{cheatsheet.title} {cheatsheet.content}'.lower():
+                    cheatsheets_filter.append((id, title, path, disabled))    
+               
         cheatsheets_filter = set(cheatsheets_filter)
         matches = len(articles_filter) + len(cheatsheets_filter)
+        
         return render_template('articles/search.html', articles=articles_filter, cheatsheets=cheatsheets_filter, matches=matches, tag=tag)
     else:
         return render_template('articles/search.html', matches='0', tag=tag)
@@ -121,7 +144,7 @@ def add_article():
             # preparing a file for sending by email
             file_path = os.path.join('app', 'static', 'articles', filename)
             subject = f'"{filename}" article has been added to the data store..'
-            send_email(file_path, subject)
+            # send_email(file_path, subject)
 
             tags = request.form.get('tags')
 
